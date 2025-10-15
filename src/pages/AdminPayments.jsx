@@ -220,7 +220,7 @@ export default function AdminPayments(){
                       <td className="p-2 text-right">
                         {pago ? (
                           <button type="button" className="btn btn-ghost" onClick={() => onVerFactura(actividad)}>
-                            Ver factura
+                            Ver Comprobante
                           </button>
                         ) : (
                           <span className="text-xs text-slate-400">Registra un pago para habilitar la factura</span>
@@ -241,11 +241,11 @@ export default function AdminPayments(){
         <div className="card p-5 print:border print:shadow-none">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-lg font-semibold text-umber">Factura de actividad #{selectedInvoice.actividad.id}</h2>
-              <p className="text-sm text-slate-600">Emitida {formatDate(selectedInvoice.pago.fecharegistro)}</p>
+              <h2 className="text-lg font-semibold text-umber">Comprobante de actividad #{selectedInvoice.actividad.id}</h2>
+              <p className="text-sm text-slate-600">Emitido {formatDate(selectedInvoice.pago.fecharegistro)}</p>
             </div>
             <button type="button" className="btn btn-primary" onClick={onImprimir}>
-              Imprimir factura
+              Imprimir Comprobante
             </button>
           </div>
           <div className="mt-4 grid gap-4 md:grid-cols-2 text-sm">
