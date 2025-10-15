@@ -16,11 +16,12 @@
 
 @media print {
   @page {
-    margin: 20mm;
+    margin: 0;
   }
 
   body {
     background: #ffffff !important;
+    margin: 0;
   }
 
   body * {
@@ -33,13 +34,37 @@
   }
 
   #printable-invoice {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: auto;
-    max-width: 720px;
-    padding: 0;
+
+    /* CONTENEDOR DE IMPRESIÓN */
+#printable-invoice {
+  position: fixed;
+  inset: 0;                     /* ocupa toda la pantalla */
+  display: flex;
+  justify-content: center;      /* centra horizontal */
+  align-items: flex-start;      /* inicia arriba */
+  padding: 20mm;                /* márgenes físicos de impresión */
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* HOJA INTERNA DEL COMPROBANTE */
+#printable-invoice .print-sheet {
+  width: 100%;
+  max-width: 170mm;             /* ancho útil de la hoja */
+  margin: 0 auto;               /* por si no usa flex */
+  box-sizing: border-box;
+}
+
+/* (Opcional) Reglas de impresión: mostrar solo el comprobante */
+@media print {
+  body * { visibility: hidden; }
+  #printable-invoice, #printable-invoice * { visibility: visible; }
+}
+@media screen {
+  #printable-invoice { padding: 24px; }  /* márgenes visuales en px para pantalla */
+}
+
+    
+    
   }
 }
