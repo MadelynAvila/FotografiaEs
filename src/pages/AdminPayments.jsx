@@ -237,11 +237,14 @@ export default function AdminPayments(){
         )}
       </div>
       {selectedInvoice && (
-        <div className="card p-6 md:p-8 print:mx-auto print:max-w-3xl print:border print:shadow-none print:bg-white print:text-black">
+        <div
+          id="printable-invoice"
+          className="card p-6 md:p-8 print:mx-auto print:max-w-3xl print:border print:shadow-none print:bg-white print:text-black"
+        >
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
             <div className="space-y-1">
               <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Comprobante oficial</p>
-              <h2 className="text-2xl font-semibold text-umber">Fotografía ES</h2>
+              <h2 className="text-2xl font-semibold text-umber">Fotografia Aguin</h2>
               <p className="text-sm text-slate-500">Comprobante de actividad #{selectedInvoice.actividad.id}</p>
             </div>
             <div className="text-sm text-right text-slate-500">
@@ -290,7 +293,7 @@ export default function AdminPayments(){
               Este comprobante confirma la recepción del pago correspondiente a la actividad seleccionada. Para tus registros, conserva una copia digital o imprime utilizando el botón indicado.
             </p>
             <p className="mt-2 text-xs text-slate-400">
-              Atención al cliente · hola@fotografiaes.com · (502) 5555-0000
+              Atención al cliente · hola@fotografiaaguin.com · (502) 5555-0000
             </p>
           </div>
         </div>

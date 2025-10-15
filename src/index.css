@@ -13,3 +13,26 @@
 .btn-ghost{ @apply bg-white text-umber border-umber hover:bg-sand; }
 .muted{ @apply text-neutral-500; }
 .container-1120{ @apply max-w-[1120px] mx-auto px-6; }
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-invoice,
+  #printable-invoice * {
+    visibility: visible;
+  }
+
+  #printable-invoice {
+    position: absolute;
+    inset: 0;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0;
+  }
+}
