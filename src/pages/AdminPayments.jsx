@@ -117,8 +117,8 @@ export default function AdminPayments(){
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-start">
+    <div className="space-y-6 print:bg-white print:p-0">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start print:hidden">
         <div className="card flex-1 p-5 space-y-4">
           <header>
             <h1 className="text-xl font-semibold text-umber">Control de pagos</h1>
@@ -173,7 +173,7 @@ export default function AdminPayments(){
         </div>
       </div>
 
-      <div className="card p-5">
+      <div className="card p-5 print:hidden">
         <h2 className="text-lg font-semibold text-umber mb-3">Historial de pagos</h2>
         {loading ? (
           <p className="muted text-sm">Cargando historial…</p>
@@ -236,38 +236,62 @@ export default function AdminPayments(){
           <p className="muted text-sm">No hay reservas registradas todavía.</p>
         )}
       </div>
-
       {selectedInvoice && (
-        <div className="card p-5 print:border print:shadow-none">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-semibold text-umber">Comprobante de actividad #{selectedInvoice.actividad.id}</h2>
-              <p className="text-sm text-slate-600">Emitido {formatDate(selectedInvoice.pago.fecharegistro)}</p>
+        <div className="card p-6 md:p-8 print:mx-auto print:max-w-3xl print:border print:shadow-none print:bg-white print:text-black">
+          <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
+            <div className="space-y-1">
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Comprobante oficial</p>
+              <h2 className="text-2xl font-semibold text-umber">Fotografía ES</h2>
+              <p className="text-sm text-slate-500">Comprobante de actividad #{selectedInvoice.actividad.id}</p>
             </div>
-            <button type="button" className="btn btn-primary" onClick={onImprimir}>
+            <div className="text-sm text-right text-slate-500">
+              <p className="font-semibold text-slate-700">#{selectedInvoice.pago.id}</p>
+              <p>Emitido {formatDate(selectedInvoice.pago.fecharegistro)}</p>
+              <p>Estado: {selectedInvoice.actividad.estado}</p>
+            </div>
+            <button type="button" className="btn btn-primary h-fit print:hidden" onClick={onImprimir}>
               Imprimir Comprobante
             </button>
           </div>
-          <div className="mt-4 grid gap-4 md:grid-cols-2 text-sm">
-            <div className="space-y-1">
-              <h3 className="font-semibold text-slate-700">Datos del cliente</h3>
-              <p>{selectedInvoice.actividad.cliente?.nombrecompleto || 'Cliente sin nombre'}</p>
-              <p>{selectedInvoice.actividad.cliente?.correo || '—'}</p>
-              <p>{selectedInvoice.actividad.cliente?.telefono || '—'}</p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="font-semibold text-slate-700">Detalle de la sesión</h3>
-              <p>Reserva #{selectedInvoice.actividad.id}</p>
-              <p>Fecha solicitada: {selectedInvoice.actividad.fechareserva ? new Date(selectedInvoice.actividad.fechareserva).toLocaleDateString('es-GT') : 'Sin fecha'}</p>
-              <p>Estado actual: {selectedInvoice.actividad.estado}</p>
-            </div>
+
+          <div className="mt-6 grid gap-6 text-sm md:grid-cols-2">
+            <section className="space-y-2">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Datos del cliente</h3>
+              <p className="text-base font-medium text-slate-700">{selectedInvoice.actividad.cliente?.nombrecompleto || 'Cliente sin nombre'}</p>
+              <p className="text-slate-500">{selectedInvoice.actividad.cliente?.correo || '—'}</p>
+              <p className="text-slate-500">{selectedInvoice.actividad.cliente?.telefono || '—'}</p>
+            </section>
+
+            <section className="space-y-2">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Detalle de la sesión</h3>
+              <dl className="space-y-1 text-slate-600">
+                <div className="flex justify-between">
+                  <dt className="font-medium text-slate-500">Reserva</dt>
+                  <dd className="text-right">#{selectedInvoice.actividad.id}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="font-medium text-slate-500">Fecha solicitada</dt>
+                  <dd className="text-right">{selectedInvoice.actividad.fechareserva ? new Date(selectedInvoice.actividad.fechareserva).toLocaleDateString('es-GT') : 'Sin fecha'}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="font-medium text-slate-500">Estado actual</dt>
+                  <dd className="text-right capitalize">{selectedInvoice.actividad.estado}</dd>
+                </div>
+              </dl>
+            </section>
           </div>
-          <div className="mt-6 rounded-xl2 border border-[var(--border)] bg-sand/60 p-4">
-            <div className="flex items-center justify-between text-lg font-semibold text-umber">
+
+          <div className="mt-8 rounded-xl2 border border-[var(--border)] bg-sand/60 p-6 print:bg-white">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-lg font-semibold text-umber">
               <span>Total pagado</span>
               <span>Q{Number(selectedInvoice.pago.total ?? 0).toLocaleString('es-GT')}</span>
             </div>
-            <p className="mt-2 text-xs text-slate-500">Conserva esta factura como comprobante. Usa el botón de imprimir para generar una copia física o PDF desde tu navegador.</p>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500">
+              Este comprobante confirma la recepción del pago correspondiente a la actividad seleccionada. Para tus registros, conserva una copia digital o imprime utilizando el botón indicado.
+            </p>
+            <p className="mt-2 text-xs text-slate-400">
+              Atención al cliente · hola@fotografiaes.com · (502) 5555-0000
+            </p>
           </div>
         </div>
       )}
