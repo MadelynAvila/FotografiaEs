@@ -16,11 +16,12 @@
 
 @media print {
   @page {
-    margin: 20mm;
+    margin: 0;
   }
 
   body {
     background: #ffffff !important;
+    margin: 0;
   }
 
   body * {
@@ -33,12 +34,20 @@
   }
 
   #printable-invoice {
-    position: relative;
-    inset: auto;
-    margin: 0 auto;
-    margin-top: 0 !important;
-    width: auto;
-    max-width: 720px;
-    padding: 0;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20mm;
+    box-sizing: border-box;
+    background: transparent;
+  }
+
+  #printable-invoice .print-sheet {
+    width: 100%;
+    max-width: 170mm;
+    margin: 0;
+    box-sizing: border-box;
   }
 }
