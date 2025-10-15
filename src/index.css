@@ -33,11 +33,12 @@
   }
 
   #printable-invoice {
-    position: relative;
-    inset: auto;
-    margin: 0 auto;
-    margin-top: 0 !important;
-    width: auto;
+    position: absolute;
+    top: 20mm;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: calc(100% - 40mm);
     max-width: 720px;
     padding: 0;
   }
