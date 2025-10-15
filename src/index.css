@@ -34,19 +34,11 @@
 
   #printable-invoice {
     position: absolute;
-
-    #printable-invoice {
-  position: absolute;
-  top: 20mm;                 /* margen superior para impresión */
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  width: calc(100% - 40mm);  /* 20mm izq + 20mm der */
-  max-width: 720px;          /* tope para pantalla */
-  padding: 0;
-}
-
-    
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: auto;
     max-width: 720px;
     padding: 0;
   }
