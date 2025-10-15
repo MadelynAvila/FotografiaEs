@@ -2,21 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --border:#E4DDCC;
+:root {
+  --border: #E4DDCC;
 }
 
 /***** Utilidades inspiradas en el prototipo *****/
-.card{ @apply bg-white border rounded-xl2 shadow-soft border-[color:var(--border)]; }
-.btn{ @apply inline-flex items-center gap-2 font-semibold rounded-xl2 px-4 py-2 border transition; }
-.btn-primary{ @apply bg-umber text-white border-umber hover:brightness-95; }
-.btn-ghost{ @apply bg-white text-umber border-umber hover:bg-sand; }
-.muted{ @apply text-neutral-500; }
-.container-1120{ @apply max-w-[1120px] mx-auto px-6; }
+.card { @apply bg-white border rounded-xl2 shadow-soft border-[color:var(--border)]; }
+.btn { @apply inline-flex items-center gap-2 font-semibold rounded-xl2 px-4 py-2 border transition; }
+.btn-primary { @apply bg-umber text-white border-umber hover:brightness-95; }
+.btn-ghost { @apply bg-white text-umber border-umber hover:bg-sand; }
+.muted { @apply text-neutral-500; }
+.container-1120 { @apply max-w-[1120px] mx-auto px-6; }
+
+/* Layout comprobante */
+#printable-invoice {
+  box-sizing: border-box;
+}
+
+@media screen {
+  #printable-invoice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  }
+}
+
+#printable-invoice .print-sheet {
+  width: 100%;
+  max-width: 170mm;
+  margin: 0 auto;
+  box-sizing: border-box;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
 
 @media print {
   @page {
-    margin: 0;
+    size: A4;
+    margin: 20mm;
   }
 
   body {
@@ -34,37 +58,13 @@
   }
 
   #printable-invoice {
+    position: static;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
 
-    /* CONTENEDOR DE IMPRESIÓN */
-#printable-invoice {
-  position: fixed;
-  inset: 0;                     /* ocupa toda la pantalla */
-  display: flex;
-  justify-content: center;      /* centra horizontal */
-  align-items: flex-start;      /* inicia arriba */
-  padding: 20mm;                /* márgenes físicos de impresión */
-  box-sizing: border-box;
-  background: transparent;
-}
-
-/* HOJA INTERNA DEL COMPROBANTE */
-#printable-invoice .print-sheet {
-  width: 100%;
-  max-width: 170mm;             /* ancho útil de la hoja */
-  margin: 0 auto;               /* por si no usa flex */
-  box-sizing: border-box;
-}
-
-/* (Opcional) Reglas de impresión: mostrar solo el comprobante */
-@media print {
-  body * { visibility: hidden; }
-  #printable-invoice, #printable-invoice * { visibility: visible; }
-}
-@media screen {
-  #printable-invoice { padding: 24px; }  /* márgenes visuales en px para pantalla */
-}
-
-    
-    
+  #printable-invoice .print-sheet {
+    margin: 0;
   }
 }
