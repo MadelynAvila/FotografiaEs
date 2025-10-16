@@ -37,74 +37,41 @@
   break-inside: avoid;
 }
 
-/* Márgenes físicos de la página */
+/* Márgenes físicos de la hoja */
 @page { size: A4; margin: 20mm; }
 
+/* Por defecto el área de impresión no se ve en pantalla */
+#print-area { display: none; }
 
-/* Márgenes físicos de la hoja */
-@page {
-  size: A4;
-  margin: 20mm;
-}
-
-/* ======== Solo impresión ======== */
 @media print {
-  /* Oculta del flujo todo lo que no sea el comprobante */
-  body > :not(#printable-invoice) {
-    display: none !important;
-  }
+  /* Oculta el resto de la app, pero sin tocar ancestros */
+  .no-print { display: none !important; }
 
-  /* El contenedor del comprobante no debe ser fixed en print */
+  /* Muestra solo el área de impresión */
+  #print-area { display: block !important; }
+
+  /* Ajustes del comprobante */
   #printable-invoice {
     position: static !important;
-    display: block !important;
     margin: 0 !important;
-    padding: 0 !important;      /* @page ya da los márgenes */
+    padding: 0 !important;     /* @page ya da los márgenes */
     page-break-after: avoid;
     break-after: avoid-page;
   }
 
-  /* Hoja interna: ancho controlado y sin cortes */
   #printable-invoice .print-sheet {
     width: 100%;
-    max-width: 168mm;           /* 168–170mm según tu layout */
+    max-width: 168mm;          /* 168–170mm según necesites */
     margin: 0 auto;
     box-sizing: border-box;
     page-break-inside: avoid;
     break-inside: avoid;
   }
 
-  /* Evitar segunda página por alturas forzadas/overflows */
   html, body, #root {
+    height: auto !important;
     min-height: auto !important;
-    height: auto !important;
     overflow: visible !important;
-    align-items: initial !important;
     margin: 0 !important;
-  }
-}
-
-
-  /* Hoja interna: ancho controlado y sin cortes */
-  #printable-invoice .print-sheet {
-    width: 100%;
-    max-width: 168mm;     /* ajusta a 168–170mm según necesites */
-    margin: 0 auto;
-    box-sizing: border-box;
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  /* Evita que alturas forzadas empujen a 2ª página */
-  html, body {
-    height: auto !important;
-    margin: 0 !important;
-  }
-
-  /* Quita sombras/radios que puedan generar overflow en print */
-  #printable-invoice .print-sheet,
-  .no-print-shadow {
-    box-shadow: none !important;
-    border-radius: 0 !important;
   }
 }
