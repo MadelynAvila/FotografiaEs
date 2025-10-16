@@ -40,6 +40,13 @@
 /* Márgenes físicos de la página */
 @page { size: A4; margin: 20mm; }
 
+
+/* Márgenes físicos de la hoja */
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
 /* ======== Solo impresión ======== */
 @media print {
   /* Oculta del flujo todo lo que no sea el comprobante */
@@ -52,10 +59,31 @@
     position: static !important;
     display: block !important;
     margin: 0 !important;
-    padding: 0 !important; /* @page ya define los márgenes */
+    padding: 0 !important;      /* @page ya da los márgenes */
     page-break-after: avoid;
     break-after: avoid-page;
   }
+
+  /* Hoja interna: ancho controlado y sin cortes */
+  #printable-invoice .print-sheet {
+    width: 100%;
+    max-width: 168mm;           /* 168–170mm según tu layout */
+    margin: 0 auto;
+    box-sizing: border-box;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Evitar segunda página por alturas forzadas/overflows */
+  html, body, #root {
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    align-items: initial !important;
+    margin: 0 !important;
+  }
+}
+
 
   /* Hoja interna: ancho controlado y sin cortes */
   #printable-invoice .print-sheet {
